@@ -7,7 +7,10 @@ const Users=require("../model/Users");
 router.get("/user",async(req,res)=>{
     try{
         const userList=await Users.find().lean().exec();
+        if(userList){
         return res.status(200).send(userList);
+        }
+        return res.send("not found");
     }
     catch(err){
         return res.status(401).send({message:err.message})
